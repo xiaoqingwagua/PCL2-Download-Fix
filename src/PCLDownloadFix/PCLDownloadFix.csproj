@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>PCL下载修复工具</AssemblyName>
+    <RootNamespace>PCLDownloadFix</RootNamespace>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <DebugType>none</DebugType>
+    <Version>1.1.0</Version>
+    <Product>PCL2 Download Fix</Product>
+    <Description>恢复 PCL2 2.99.0.1 正式版的原版游戏下载与整合包安装功能</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- 只在编译时引用，运行时从内嵌资源加载，保证发布产物是单个 exe -->
+    <PackageReference Include="dnlib" Version="4.5.0" GeneratePathProperty="true" PrivateAssets="all" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(Pkgdnlib)\lib\net45\dnlib.dll" LogicalName="dnlib.dll" Visible="false" />
+  </ItemGroup>
+</Project>

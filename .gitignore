@@ -1,0 +1,11 @@
+bin/
+obj/
+out/
+*.user
+.vs/
+# 不要提交 PCL 本体或修复产物
+*.exe
+*.exe.bak
+*.exe.tmp
+# 视频素材体积大，通过 Release 发布
+video/
