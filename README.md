@@ -12,7 +12,7 @@ PCL2（Plain Craft Launcher 2）正式版 2.99.0.1 移除了“原版游戏下�
 | --- | --- | --- |
 | 下载 → 原版游戏 | 标签被隐藏，强制跳到 Mod 页；版本列表加载时直接报错 | 正常显示版本列表并可安装 |
 | 下载整合包（CurseForge / Modrinth） | 文件能下完，安装时提示“PCL 不再提供 MC 下载功能” | 正常安装 |
-| 手动导入整合包（zip / mrpack） | 点击后只弹出红色提示 | 弹出文件选择框并安装 |
+| 手动导入整合包（zip / mrpack） | “安装已有整合包”按钮被隐藏；拖入或导入时只弹出红色提示 | 按钮恢复，选择文件或拖入窗口即可安装 |
 
 支持的整合包格式与 PCL2 Release 2.6.6 一致：CurseForge、Modrinth、HMCL、MultiMC、MCBBS、带启动器的压缩包、普通压缩包。
 
@@ -43,14 +43,15 @@ PCL2（Plain Craft Launcher 2）正式版 2.99.0.1 移除了“原版游戏下�
 
 ## 原理
 
-PCL2 是 .NET 程序。工具用 [dnlib](https://github.com/0xd4d/dnlib) 读取程序集，在中间语言（IL）层面修改四个方法：
+PCL2 是 .NET 程序。工具用 [dnlib](https://github.com/0xd4d/dnlib) 读取程序集，在中间语言（IL）层面修改五个方法：
 
 1. `PageDownloadInstall.LoaderInit`：把只会抛异常的假加载器换回 `ModDownload.DlClientListLoader`。
 2. `PageDownloadLeft` 构造函数：删掉隐藏“原版游戏”标签和强制跳转 Mod 页的代码。
 3. `ModModpack.ModpackInstall(File, InstanceName, Logo)`：把末尾的 `throw` 换回按整合包类型分发的 `switch`。
 4. `ModModpack.ModpackInstall()`：重建“选择文件 → 后台安装”的流程。
+5. `PageResource.PageType` 的 setter：让“安装已有整合包”按钮重新在整合包页显示。
 
-这四处的原始实现在 2.99.0.1 里大多还留着，只是入口被切断了。详细分析见 [docs/原理.md](docs/原理.md)。
+这五处的原始实现在 2.99.0.1 里大多还留着，只是入口被切断了。详细分析见 [docs/原理.md](docs/原理.md)。
 
 ## 自行构建
 

@@ -26,7 +26,41 @@ static partial class Patcher
         var noArg = t.Methods.FirstOrDefault(x => x.Name == "ModpackInstall" && x.Parameters.Count == 0 && HasBanned(x));
         if (noArg != null) { RestoreSelectAndInstall(m, noArg); changed = true; }
 
+        if (RestoreInstallPackButton(m)) changed = true;
+
         return changed;
+    }
+
+    // PageResource.PageType 的 setter：原本按类型显示“安装已有整合包”按钮，被改成了永远隐藏
+    //   被改后: ldarg.1; ldc.i4.2; pop; pop; ldc.i4.2      → 永远 Collapsed
+    //   恢复为: ldarg.1; ldc.i4.2; ceq; ldc.i4.1; xor; ldc.i4.1; shl
+    //          → value == ResourceTypes.ModPack(2) 时为 0(Visible)，否则为 2(Collapsed)
+    static bool RestoreInstallPackButton(ModuleDefMD m)
+    {
+        var t = m.Find("PCL.PageResource", false);
+        if (t == null) return false;
+        var setter = t.Methods.FirstOrDefault(x => x.HasBody && x.Name.StartsWith("set_") &&
+            x.Body.Instructions.Any(i => i.Operand is IMethod im && im.Name == "get_BtnSearchInstallModPack"));
+        if (setter == null) return false;
+        var ins = setter.Body.Instructions;
+        for (int k = 0; k + 5 < ins.Count; k++)
+        {
+            if (ins[k].OpCode == OpCodes.Ldarg_1 && ins[k + 1].IsLdcI4() && ins[k + 1].GetLdcI4Value() == 2 &&
+                ins[k + 2].OpCode == OpCodes.Pop && ins[k + 3].OpCode == OpCodes.Pop &&
+                ins[k + 4].IsLdcI4() && ins[k + 4].GetLdcI4Value() == 2 &&
+                ins[k + 5].Operand is IMethod sv && sv.Name == "set_Visibility")
+            {
+                ins[k + 2].OpCode = OpCodes.Ceq; ins[k + 2].Operand = null;
+                ins[k + 3].OpCode = OpCodes.Ldc_I4_1; ins[k + 3].Operand = null;
+                ins[k + 4].OpCode = OpCodes.Xor; ins[k + 4].Operand = null;
+                ins.Insert(k + 5, Instruction.Create(OpCodes.Ldc_I4_1));
+                ins.Insert(k + 6, Instruction.Create(OpCodes.Shl));
+                setter.Body.OptimizeBranches();
+                setter.Body.UpdateInstructionOffsets();
+                return true;
+            }
+        }
+        return false; // 已修复或结构不同，不动它
     }
 
     // ModpackInstall(File, InstanceName, Logo)：把末尾的 throw 换回 switch 分发

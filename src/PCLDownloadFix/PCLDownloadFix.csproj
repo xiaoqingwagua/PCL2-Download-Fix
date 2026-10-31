@@ -8,7 +8,7 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <DebugType>none</DebugType>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Product>PCL2 Download Fix</Product>
     <Description>恢复 PCL2 2.99.0.1 正式版的原版游戏下载与整合包安装功能</Description>
   </PropertyGroup>
