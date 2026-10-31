@@ -12,7 +12,7 @@ PCL2（Plain Craft Launcher 2）正式版 2.99.0.1 移除了“原版游戏下�
 | 下载整合包（CurseForge / Modrinth） | 文件能下完，安装时提示“PCL 不再提供 MC 下载功能” | 正常安装 |
 | 手动导入整合包（zip / mrpack） | “安装已有整合包”按钮被隐藏；拖入或导入时只弹出红色提示 | 按钮恢复，选择文件或拖入窗口即可安装 |
 
-支持的整合包格式与 PCL2 Release 2.6.6 一致：CurseForge、Modrinth、HMCL、MultiMC、MCBBS、带启动器的压缩包、普通压缩包。
+支持的整合包格式与之前可以正常下载的版本（Release 2.6.6）一致：CurseForge、Modrinth、HMCL、MultiMC、MCBBS、带启动器的压缩包、普通压缩包。
 
 ## 使用方法
 
