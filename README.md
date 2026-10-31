@@ -16,11 +16,12 @@ PCL2（Plain Craft Launcher 2）正式版 2.99.0.1 移除了“原版游戏下�
 
 ## 使用方法
 
-1. 到 [Releases](../../releases) 下载 `PCL下载修复工具.exe`。
+1. 到 [Releases](../../releases) 下载最新版的 `PCL2-Download-Fix.exe`。
 2. 先关闭正在运行的 PCL2。
 3. 把工具放到 `Plain Craft Launcher 2.exe` 所在的文件夹。
-4. 双击运行，看到 `[成功]` 后按任意键退出。
-5. 打开 PCL2，进入“下载”页。
+4. 双击运行。如果弹出“Windows 已保护你的电脑”，点“更多信息”，再点“仍要运行”（工具没有数字签名）。
+5. 看到 `[成功]` 后按任意键退出。
+6. 打开 PCL2，进入“下载”页。
 
 工具会自动扫描同目录下的所有 exe，只处理 PCL2，其他程序会跳过。
 
@@ -60,7 +61,7 @@ cd src/PCLDownloadFix
 dotnet publish -c Release -o ../../out
 ```
 
-产物是 `out/PCL下载修复工具.exe`。dnlib 会作为内嵌资源打进 exe，所以只有一个文件。
+产物是 `out/PCL下载修复工具.exe`，和 Release 里的 `PCL2-Download-Fix.exe` 是同一个文件，只是名字不同。dnlib 会作为内嵌资源打进 exe，所以只有一个文件。
 
 ## 免责声明
 
