@@ -4,8 +4,6 @@ PCL2（Plain Craft Launcher 2）正式版 2.99.0.1 移除了“原版游戏下�
 
 > 本项目只发布修复工具的源码和可执行文件，不包含、也不分发 PCL2 本体。PCL2 请从官方渠道获取。
 
-<!-- VIDEO_PLACEHOLDER -->
-
 ## 恢复的功能
 
 | 功能 | 修复前 | 修复后 |
@@ -72,7 +70,7 @@ dotnet publish -c Release -o ../../out
 
 ## 致谢
 
-- 本项目的分析、补丁、修复工具、演示视频的录制与剪辑由 [Claude Code](https://claude.com/claude-code)（Anthropic）完成。
+- 本项目的分析、补丁和修复工具由 [Claude Code](https://claude.com/claude-code)（Anthropic）完成。
 - [dnlib](https://github.com/0xd4d/dnlib)，MIT 许可证。
 - [ILSpy](https://github.com/icsharpcode/ILSpy)，用于反编译对比。
 
